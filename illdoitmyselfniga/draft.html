@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Write Letter • Dafts</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+
+    body {
+      background:
+        radial-gradient(circle at top, rgba(0,0,0,0.03), transparent 40%),
+        #e4dbc9;
+      overflow-x: hidden;
+    }
+
+    /* PAPER */
+    .paper {
+      background:
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.1)),
+        #f8f1e4;
+
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,0.08),
+        0 20px 70px rgba(0,0,0,0.08);
+
+      position: relative;
+      overflow: hidden;
+    }
+
+
+    .paper::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background-image:
+        repeating-linear-gradient(
+          transparent,
+          transparent 37px,
+          rgba(0,0,0,0.075) 38px
+        );
+
+      pointer-events: none;
+    }
+
+    .paper::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      box-shadow: inset 0 0 90px rgba(0,0,0,0.05);
+
+      pointer-events: none;
+    }
+
+    /* FLOAT */
+    .float {
+      animation: float 7s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%,100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* FADE */
+    .fade {
+      animation: fade 1s ease;
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0px);
+      }
+    }
+
+    /* TEXT */
+    textarea {
+      caret-color: #111;
+    }
+
+    textarea::-webkit-scrollbar {
+      width: 0;
+    }
+
+    .ink {
+      text-shadow:
+        0 0 1px rgba(0,0,0,0.12),
+        0 0 2px rgba(0,0,0,0.05);
+    }
+
+    /* BUTTON */
+    .post-btn {
+      transition: all 0.35s ease;
+    }
+
+    .post-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+
+    /* CANVAS */
+    canvas {
+      cursor: crosshair;
+    }
+
+    /* DUST */
+    .dust {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(0,0,0,0.05);
+      border-radius: 999px;
+      animation: drift linear infinite;
+    }
+
+    @keyframes drift {
+      from {
+        transform: translateY(0px);
+      }
+
+      to {
+        transform: translateY(40px);
+      }
+    }
+
+    /* POST ANIMATION */
+
+    .posting {
+
+    animation: foldLetter 1.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+
+    transform-origin: center center;
+
+    }
+
+    @keyframes foldLetter {
+
+    0% {
+        transform:
+        scale(1)
+        rotate(0deg)
+        translateX(0px);
+
+        opacity: 1;
+
+        filter: blur(0px);
+    }
+
+    20% {
+        transform:
+        scaleY(0.96)
+        rotate(-1deg);
+    }
+
+    40% {
+        transform:
+        scaleY(0.9)
+        rotate(1deg);
+    }
+
+    55% {
+        transform:
+        scaleY(0.82)
+        scaleX(0.97)
+        rotate(-2deg);
+
+        box-shadow:
+        0 30px 80px rgba(0,0,0,0.15);
+    }
+
+    75% {
+        transform:
+        translateX(-180px)
+        rotate(-8deg)
+        scale(0.88);
+
+        opacity: 0.8;
+    }
+
+    100% {
+        transform:
+        translateX(-120vw)
+        rotate(-18deg)
+        scale(0.6);
+
+        opacity: 0;
+
+        filter: blur(4px);
+    }
+
+    }
+
+    /* CONTROLS FADE */
+
+    .controls-hide {
+
+    animation: controlsGone 0.8s ease forwards;
+
+    }
+
+    @keyframes controlsGone {
+
+    to {
+        opacity: 0;
+        transform: translateX(40px);
+        filter: blur(6px);
+    }
+
+    }
+
+  </style>
+
+</head>
+
+<body class="font-[Arial] text-[#171717] min-h-screen">
+
+  <!-- DUST -->
+  <div class="dust top-20 left-20" style="animation-duration: 8s;"></div>
+  <div class="dust top-40 left-[70%]" style="animation-duration: 11s;"></div>
+  <div class="dust top-72 left-[40%]" style="animation-duration: 6s;"></div>
+  <div class="dust top-[20%] left-[85%]" style="animation-duration: 9s;"></div>
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#e4dbc9]/70 border-b border-black/5">
+
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+
+      <div>
+
+        <p class="text-[10px] uppercase tracking-[0.45em] text-neutral-600">
+          Public Letter Archive
+        </p>
+
+        <h1 class="text-4xl font-black uppercase tracking-wide">
+          Dafts
+        </h1>
+
+      </div>
+
+    </div>
+
+  </header>
+
+  <!-- MAIN -->
+  <main class="max-w-7xl mx-auto px-6 py-14 fade">
+
+    <div class="grid lg:grid-cols-[1fr_320px] gap-10 items-start">
+
+      <!-- LETTER -->
+      <div>
+
+        <div id="letterPaper" class="relative w-full paper float rounded-[2px]">
+
+          <!-- TOP SHADOW -->
+          <div class="absolute top-0 left-0 w-full h-14 bg-gradient-to-b from-black/[0.03] to-transparent"></div>
+
+          <!-- DATE -->
+          <div class="absolute top-10 left-12 text-[11px] tracking-[0.25em] uppercase text-neutral-500">
+            24 • May • 2026
+          </div>
+
+          <!-- BODY -->
+          <div class="relative z-10 p-12 md:p-20">
+
+            <!-- OPENING -->
+            <div class="mb-10">
+
+              <p class="text-sm uppercase tracking-[0.35em] text-neutral-500">
+                Dear —
+              </p>
+
+            </div>
+
+            <!-- LETTER -->
+            <textarea
+              id="letter"
+              placeholder="Write what stayed inside you."
+              class="ink w-full min-h-[270px] bg-transparent outline-none resize-none text-[28px] leading-[1.9rem] tracking-[0.02em]"
+            ></textarea>
+
+            <!-- SIGNATURE -->
+            <div class="mt-12">
+
+              <p class="text-sm uppercase tracking-[0.35em] text-neutral-500 mb-3">
+                Signed,
+              </p>
+
+              <input
+                type="text"
+                placeholder="anonymous"
+                class="bg-transparent border-b border-black/20 outline-none py-2 text-lg"
+              />
+
+            </div>
+
+          </div>
+
+          <!-- DRAW LAYER -->
+          <canvas
+            id="drawingCanvas"
+            class="absolute inset-0 w-full h-full z-20">
+          </canvas>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT CONTROLS -->
+      <div id="controlsPanel" class="sticky top-28">
+
+        <div class="bg-[#f8f1e4]/90 border border-black/10 p-6 space-y-5 backdrop-blur-sm">
+
+          <p class="text-[10px] uppercase tracking-[0.35em] text-neutral-500 border-b border-black/10 pb-4">
+            Letter Controls
+          </p>
+
+          <!-- RECIPIENT -->
+          <div>
+
+            <label class="text-[10px] uppercase tracking-[0.3em] text-neutral-500 block mb-2">
+              Recipient
+            </label>
+
+            <div class="relative">
+
+              <input
+                type="text"
+                placeholder="To whom?"
+                class="w-full bg-transparent border border-black/10 px-4 py-3 pr-10 outline-none text-sm tracking-wide focus:border-black/30 transition"
+              />
+
+              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-500">
+                ✉
+              </span>
+
+            </div>
+
+          </div>
+
+          <!-- FONT -->
+          <div>
+
+            <label class="text-[10px] uppercase tracking-[0.3em] text-neutral-500 block mb-2">
+              Font
+            </label>
+
+            <select
+              id="fontSelector"
+              class="w-full bg-transparent border border-black/10 px-4 py-3 outline-none text-sm tracking-wide">
+
+              <option value="Arial">Arial</option>
+              <option value="Georgia">Georgia</option>
+              <option value="'Times New Roman'">Times</option>
+              <option value="'Courier New'">Courier</option>
+              <option value="cursive">Handwritten</option>
+
+            </select>
+
+          </div>
+
+          <!-- COLOR -->
+          <div>
+
+            <label class="text-[10px] uppercase tracking-[0.3em] text-neutral-500 block mb-2">
+              Ink Color
+            </label>
+
+            <div class="border border-black/10 px-4 py-3">
+
+              <input
+                id="colorPicker"
+                type="color"
+                value="#171717"
+                class="w-full h-10 bg-transparent border-none cursor-pointer"
+              />
+
+            </div>
+
+          </div>
+
+          <!-- DRAW -->
+          <button
+            id="toggleDraw"
+            class="w-full border border-black/10 px-5 py-4 uppercase tracking-[0.3em] text-xs bg-[#f8f1e4]/90 hover:bg-black hover:text-white transition">
+
+            Draw On Letter
+
+          </button>
+
+          <!-- POST -->
+            <button
+            id="postLetter"
+            class="post-btn w-full bg-black text-white px-8 py-4 uppercase tracking-[0.35em] text-xs">
+            Post letter
+            </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+
+    // ELEMENTS
+    const textarea = document.getElementById("letter");
+    const colorPicker = document.getElementById("colorPicker");
+    const fontSelector = document.getElementById("fontSelector");
+
+    // FONT + COLOR
+    colorPicker.addEventListener("input", () => {
+      textarea.style.color = colorPicker.value;
+    });
+
+    fontSelector.addEventListener("change", () => {
+      textarea.style.fontFamily = fontSelector.value;
+    });
+
+    // DRAW SYSTEM
+    const canvas = document.getElementById("drawingCanvas");
+
+    canvas.style.pointerEvents = "none";
+
+    const ctx = canvas.getContext("2d");
+
+    ctx.imageSmoothingEnabled = true;
+
+    const toggleDraw = document.getElementById("toggleDraw");
+
+    let drawing = false;
+    let enabled = false;
+
+    // RESIZE
+    function resizeCanvas() {
+
+      const rect = canvas.parentElement.getBoundingClientRect();
+
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+
+      canvas.style.width = rect.width + "px";
+      canvas.style.height = rect.height + "px";
+
+    }
+
+    resizeCanvas();
+
+    window.addEventListener("resize", resizeCanvas);
+
+    // TOGGLE DRAW
+    toggleDraw.addEventListener("click", () => {
+
+      enabled = !enabled;
+
+      if(enabled) {
+
+        canvas.style.pointerEvents = "auto";
+
+        toggleDraw.classList.add("bg-black");
+        toggleDraw.classList.add("text-white");
+
+      } else {
+
+        canvas.style.pointerEvents = "none";
+
+        toggleDraw.classList.remove("bg-black");
+        toggleDraw.classList.remove("text-white");
+
+      }
+
+    });
+
+    // START
+    canvas.addEventListener("mousedown", (e) => {
+
+      if(!enabled) return;
+
+      drawing = true;
+
+      const rect = canvas.getBoundingClientRect();
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        e.clientX - rect.left,
+        e.clientY - rect.top
+      );
+
+    });
+
+    // MOVE
+    canvas.addEventListener("mousemove", (e) => {
+
+      if(!drawing || !enabled) return;
+
+      const rect = canvas.getBoundingClientRect();
+
+      ctx.lineWidth = 1.5;
+
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+
+      ctx.strokeStyle = colorPicker.value;
+
+      ctx.shadowColor = colorPicker.value;
+      ctx.shadowBlur = 2;
+
+      ctx.globalAlpha = 0.75;
+
+      ctx.lineTo(
+        e.clientX - rect.left,
+        e.clientY - rect.top
+      );
+
+      ctx.stroke();
+
+    });
+
+    // STOP
+    window.addEventListener("mouseup", () => {
+      drawing = false;
+    });
+
+
+    // POST LETTER ANIMATION
+
+    const postButton = document.getElementById("postLetter");
+
+    const letterPaper = document.getElementById("letterPaper");
+
+    const controlsPanel = document.getElementById("controlsPanel");
+
+    postButton.addEventListener("click", () => {
+
+    // disable scrolling during animation
+    document.body.style.overflow = "hidden";
+
+    // fade controls
+    controlsPanel.classList.add("controls-hide");
+
+    // fold + slide letter
+    setTimeout(() => {
+
+        letterPaper.classList.add("posting");
+
+    }, 250);
+
+    // redirect
+    setTimeout(() => {
+
+        window.location.href = "home.html";
+
+    }, 2100);
+    });
+
+  </script>
+
+</body>
+</html>

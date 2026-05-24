@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dafts</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Vintage Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <style>
+    body {
+      background-color: #e7dfcf;
+      background-image:
+        linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .paper {
+      background: #f8f3e8;
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,0.2),
+        0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .ink {
+      color: #1c1b19;
+    }
+
+    .stamp {
+      transform: rotate(-8deg);
+      letter-spacing: 0.3em;
+    }
+
+    .letter-line {
+      background-image: linear-gradient(to right, rgba(0,0,0,0.08) 50%, transparent 50%);
+      background-size: 10px 1px;
+      background-repeat: repeat-x;
+      background-position: bottom;
+    }
+  </style>
+</head>
+
+<body class="font-[Arial] ink min-h-screen">
+
+  <!-- MAIN WRAPPER -->
+  <div class="max-w-7xl mx-auto min-h-screen border-x border-black/20 paper">
+
+    <!-- HEADER -->
+    <header class="border-b border-black/20">
+
+      <!-- Top strip -->
+      <div class="flex justify-between items-center px-6 py-3 text-[10px] uppercase tracking-[0.35em] border-b border-black/10 text-neutral-700">
+        <p>Est. 1926</p>
+        <p>Letters Never Really Die</p>
+      </div>
+
+      <!-- Logo Area -->
+      <div class="relative text-center py-10 border-b border-black/10 overflow-hidden">
+
+        <p class="text-[11px] uppercase tracking-[0.45em] text-neutral-600 mb-3">
+          The Public Letter Archive
+        </p>
+
+        <h1 class="text-6xl md:text-7xl font-black uppercase tracking-wide">
+          Dafts
+        </h1>
+
+        <p class="mt-4 text-xs uppercase tracking-[0.4em] text-neutral-700">
+          Anonymous Feelings. Permanent Ink.
+        </p>
+
+      </div>
+
+      <!-- NAVBAR -->
+      <nav class="flex justify-center items-center gap-10 md:gap-16 py-5 text-xs uppercase tracking-[0.35em] bg-[#efe7d8]">
+
+        <a href="#" class="hover:opacity-60 transition letter-line pb-1">
+          Home
+        </a>
+
+        <a href="#" class="hover:opacity-60 transition letter-line pb-1">
+          My Letters
+        </a>
+
+        <a href="#" class="hover:opacity-60 transition letter-line pb-1">
+          Replies
+        </a>
+
+        <a href="#" class="hover:opacity-60 transition letter-line pb-1">
+          Trending
+        </a>
+
+      </nav>
+
+    </header>
+
+    <!-- HERO -->
+    <section class="px-6 md:px-16 py-16 border-b border-black/10">
+
+      <div class="grid md:grid-cols-3 gap-12">
+
+        <!-- Main -->
+        <div class="md:col-span-2">
+
+          <p class="text-[11px] uppercase tracking-[0.4em] text-neutral-600 mb-5">
+            Featured Letter
+          </p>
+
+          <h2 class="text-5xl md:text-6xl font-black uppercase leading-tight">
+            “Some names become homes inside us.”
+          </h2>
+
+          <p class="mt-8 text-base leading-8 text-neutral-800 max-w-2xl">
+            Dafts is a place where unfinished conversations survive.
+            Write letters to strangers, old lovers, forgotten friends,
+            or people who will never know they were remembered.
+          </p>
+          
+          <a href="draft.html">
+          <button class="mt-10 border border-black px-10 py-4 uppercase tracking-[0.3em] bg-black text-white hover:bg-transparent hover:text-black transition">
+            Write A Letter
+          </button>
+          </a>
+
+
+        </div>
+
+        <!-- Side Paper -->
+        <div class="bg-[#f2eadb] border border-black/20 p-8 relative">
+
+          <!-- Pin -->
+          <div class="absolute -top-3 left-6 w-6 h-6 rounded-full bg-black/70"></div>
+
+          <p class="text-[10px] uppercase tracking-[0.4em] border-b border-black/20 pb-4">
+            Daily Records
+          </p>
+
+          <div class="space-y-7 pt-7 uppercase tracking-widest text-sm">
+
+            <div class="flex justify-between">
+              <span>Letters</span>
+              <span>12,483</span>
+            </div>
+
+            <div class="flex justify-between">
+              <span>Replies</span>
+              <span>3,281</span>
+            </div>
+
+            <div class="flex justify-between">
+              <span>Names Today</span>
+              <span>648</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- TRENDING -->
+    <section class="px-6 md:px-16 py-16">
+
+      <div class="flex justify-between items-center border-b border-black/10 pb-5 mb-10">
+
+        <h3 class="text-2xl font-black uppercase tracking-wide">
+          Trending Letters
+        </h3>
+
+        <p class="text-[10px] uppercase tracking-[0.4em] text-neutral-600">
+          Most Read Today
+        </p>
+
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <!-- CARD -->
+        <div class="bg-[#f5edde] border border-black/20 p-7 hover:-translate-y-1 transition duration-300">
+
+          <p class="text-[10px] uppercase tracking-[0.35em] text-neutral-600 mb-5">
+            To : Elena
+          </p>
+
+          <h4 class="text-3xl font-bold leading-snug">
+            “I still slow down when I hear your name.”
+          </h4>
+
+          <p class="mt-8 text-xs uppercase tracking-[0.3em] text-neutral-700">
+            Sent by midnightwriter
+          </p>
+
+        </div>
+
+        <!-- CARD -->
+        <div class="bg-[#f5edde] border border-black/20 p-7 hover:-translate-y-1 transition duration-300">
+
+          <p class="text-[10px] uppercase tracking-[0.35em] text-neutral-600 mb-5">
+            To : Daniel
+          </p>
+
+          <h4 class="text-3xl font-bold leading-snug">
+            “You became a memory before I was ready.”
+          </h4>
+
+          <p class="mt-8 text-xs uppercase tracking-[0.3em] text-neutral-700">
+            Sent by anonymous
+          </p>
+
+        </div>
+
+        <!-- CARD -->
+        <div class="bg-[#f5edde] border border-black/20 p-7 hover:-translate-y-1 transition duration-300">
+
+          <p class="text-[10px] uppercase tracking-[0.35em] text-neutral-600 mb-5">
+            To : Mira
+          </p>
+
+          <h4 class="text-3xl font-bold leading-snug">
+            “You left quietly but echoed for years.”
+          </h4>
+
+          <p class="mt-8 text-xs uppercase tracking-[0.3em] text-neutral-700">
+            Sent by paperghost
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-black/10 px-6 py-5 text-center text-[10px] uppercase tracking-[0.4em] text-neutral-600 bg-[#efe7d8]">
+      Printed in fading ink.
+    </footer>
+
+  </div>
+
+</body>
+</html>
